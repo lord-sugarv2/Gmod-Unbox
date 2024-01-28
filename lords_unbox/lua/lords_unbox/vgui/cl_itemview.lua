@@ -27,6 +27,7 @@ function PANEL:SetData(data)
         local item = LUnbox.Config["Items"][tonumber(v.item)]
 
         local panel = self.Items:Add("DPanel")
+        local chance = LUnbox:CalculateChance(v.chance, data.items)
         panel.Paint = function(s, w, h)
             local rardat = LUnbox.Config["Rarity"][tonumber(item.rarity)]
             col = rardat.col
@@ -38,7 +39,7 @@ function PANEL:SetData(data)
 
             PIXEL.DrawSimpleText(item.name or "N/A", "LUnbox:22", w/2, h*.3, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
             PIXEL.DrawSimpleText(rardat.name or "N/A", "LUnbox:22", w/2, h*.45, col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-            PIXEL.DrawSimpleText((v.chance or "N/A").."%", "LUnbox:22", w/2, h*.7, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            PIXEL.DrawSimpleText((chance or "N/A").."%", "LUnbox:22", w/2, h*.7, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
         end
         table.insert(self.Panels, panel)
     end
